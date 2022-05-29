@@ -20,13 +20,30 @@ const signup = async (req, res) => {
   });
 
   try {
-    await newUser.save();
-    res.send(newUser);
+    if (newUser.role === "head of the department") {
+      User.findOne({ role, department }, function (err, user) {
+        if (err) res.send("something went wrong", 404);
+        if (user) {
+          res.send(`HOD position for ${department} has already been occupied`, 404);
+        } else {
+          newUser
+            .save()
+            .then((user) => res.send("new hod has been appointed"))
+            .catch((err) => {
+              if (err.toString().includes("email")) {
+                res.send("Email is taken", 404);
+              }
+            });
+        }
+      });
+    } else {
+      await newUser.save();
+      res.send("user has been saved successfully");
+    }
   } catch (err) {
     if (err.toString().includes("email")) {
       res.send("Email is taken", 404);
     }
-  
   }
 };
 
