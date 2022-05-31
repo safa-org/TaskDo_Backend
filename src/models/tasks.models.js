@@ -13,19 +13,18 @@ const TaskSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  assignedDate:{
-      type:Date,
-      required: true,
-  },
-  expectedDate:{
-    type:Date,
-    required: true, 
-  },
-  submittedDate:{
-    type:Date,
+  assignedDate: {
+    type: Date,
     required: true,
-  }
-
+  },
+  expectedDate: {
+    type: Date,
+    required: true,
+  },
+  submittedDate: {
+    type: Date,
+    required: false,
+  },
 });
 
-module.exports =  Task = mongoose.model("task",TaskSchema) 
+module.exports = Task = mongoose.model("task", TaskSchema);

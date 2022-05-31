@@ -20,11 +20,14 @@ const signup = async (req, res) => {
   });
 
   try {
-    if (newUser.role === "head of the department") {
+    if (newUser.role === "Head of the department") {
       User.findOne({ role, department }, function (err, user) {
         if (err) res.send("something went wrong", 404);
         if (user) {
-          res.send(`HOD position for ${department} has already been occupied`, 404);
+          res.send(
+            `HOD position for ${department} has already been occupied`,
+            404
+          );
         } else {
           newUser
             .save()

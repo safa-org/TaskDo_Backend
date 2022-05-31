@@ -20,14 +20,15 @@ app.use(body_parser.urlencoded({ extended: false }));
 
 mongoose
   .connect(
-    "mongodb+srv://sahul:aPrZanQTVNipx7Kv@cluster0.alht5.mongodb.net/SafaDB?retryWrites=true&w=majority"
+    "mongodb+srv://farhan:KS2S1tm1zIy3Z7Xs@cluster0.7bmbg.mongodb.net/SafaDB?retryWrites=true&w=majority"
   )
   .then(() => console.log("Db is connected"))
   .catch((err) => console.log(err, "it has an error"));
 
 app.use("/register", SignupRouter);
 app.use("/login", LoginRouter);
-app.use("/tasks", authenticateToken, TaskRouter)
+app.use("/tasks", authenticateToken, TaskRouter);
+
 app.listen(port, () => [
   console.log(`server starts at http://localhost:${port}`),
 ]);
