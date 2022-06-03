@@ -15,15 +15,19 @@ const TaskSchema = mongoose.Schema({
   },
   assignedDate: {
     type: Date,
-    required: true,
+    default: Date.now,
   },
   expectedDate: {
     type: Date,
     required: true,
   },
-  submittedDate: {
-    type: Date,
-    required: false,
+  isCompleted: {
+    type: Boolean,
+    default: false,
+  },
+  rating: {
+    type: Number,
+    default: 0,
   },
 });
 

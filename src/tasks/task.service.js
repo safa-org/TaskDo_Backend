@@ -36,4 +36,48 @@ const saveTask = async (req, res) => {
   }
 };
 
-module.exports = { saveTask, isHod };
+const myTask = async (req, res) => {
+  const myTasks = await Task.find({ assignedUser: req.user.email });
+  res.send(myTasks);
+};
+
+const allProf = async (req, res) => {
+  const hod = await User.findOne({
+    email: req.user.email,
+  });
+  console.log(hod.department, "hod");
+  const allProf = await User.find({
+    department: hod.department,
+  });
+  console.log(allProf);
+  res.send(allProf);
+};
+
+const submitMyTask = async (req, res) => {
+  const id = req.params.id;
+  const completeTask = await Task.findByIdAndUpdate(id, { isCompleted: true });
+  res.send(completeTask);
+};
+
+const rateMyTask = async (req, res) => {
+  const id = req.params.id;
+  const rate = req.body.rate;
+  const rateTask = await Task.findByIdAndUpdate(id, { rating: rate });
+  res.send(rateTask);
+};
+
+const departmentTask = async (req, res) => {
+  const hod = await User.findOne({ email: req.user.email });
+  const profTask = await Task.find({ department: hod.department });
+  res.send(profTask);
+};
+
+const rating = (module.exports = {
+  saveTask,
+  isHod,
+  myTask,
+  allProf,
+  submitMyTask,
+  rateMyTask,
+  departmentTask,
+});
